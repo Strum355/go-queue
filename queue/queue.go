@@ -37,6 +37,17 @@ func (q *Queue) Init() *Queue {
 	return q
 }
 
+// List returns the queue in a slice representation, from front to back.
+func (q *Queue) List() []interface{} {
+	start := q.front
+	ret := make([]interface{}, q.length)
+	for i := 0; i < q.length; i++ {
+		ret[i] = q.rep[start]
+		start = q.inc(start)
+	}
+	return ret
+}
+
 // lazyInit lazily initializes a zero Queue value.
 //
 // I am mostly doing this because container/list does the same thing.

@@ -4,9 +4,11 @@
 
 package queue
 
-import "testing"
-import "container/list"
-import "math/rand"
+import (
+	"testing"
+	"container/list"
+	"math/rand"
+)
 
 func ensureEmpty(t *testing.T, q *Queue) {
 	if l := q.Len(); l != 0 {
@@ -26,7 +28,31 @@ func ensureEmpty(t *testing.T, q *Queue) {
 	}
 }
 
+func TestList(t *testing.T) {
+	var queue Queue
+	for i := 0; i < 5; i++ {
+		queue.PushBack(i)
+	}
+	for i := 0; i < 0; i++ {
+		queue.PopFront()
+	}
+	
+	list := queue.List()
+	list2 := make([]interface{}, 0)
+
+	for queue.Len() != 0 {
+		list2 = append(list2, queue.PopFront())
+	}
+
+	for i := range list {
+		if list[i] != list2[i] {
+			t.Errorf("Error at %d, expected %v got %v", i, list2[i], list[i])
+		}
+	}
+}
+
 func TestNew(t *testing.T) {
+	t.Log("hi")
 	q := New()
 	ensureEmpty(t, q)
 }
