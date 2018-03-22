@@ -52,7 +52,6 @@ func TestList(t *testing.T) {
 }
 
 func TestNew(t *testing.T) {
-	t.Log("hi")
 	q := New()
 	ensureEmpty(t, q)
 }
